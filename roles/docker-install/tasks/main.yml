@@ -15,17 +15,17 @@
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
 
-- name: Add Docker GPG key
-  ansible.builtin.apt_key:
-    url: "https://download.docker.com/linux/ubuntu/gpg"
-    file: /etc/apt/keyrings/docker.asc
-    state: present
-
 - name: Change permissions of docker key file
   ansible.builtin.file:
     path: /etc/apt/keyrings/docker.asc
     state: file
     mode: 'a+r'
+
+- name: Add Docker GPG key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    keyring: /etc/apt/keyrings/docker.asc
+    state: present
 
 - name: Add Docker repository
   ansible.builtin.apt_repository:
