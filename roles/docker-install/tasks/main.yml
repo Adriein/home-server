@@ -1,0 +1,45 @@
+---
+- name: Ensure apt is using HTTPS
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - ca-certificates
+    - curl
+
+- name: Create keyrings folder
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: ubuntu  # Optional ownership
+    group: ubuntu  # Optional group ownership
+
+- name: Add Docker GPG key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    file: /etc/apt/keyrings/docker.asc
+    state: present
+
+- name: Change permissions of docker key file
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/docker.asc
+    state: file
+    mode: 'a+r'
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: "{{ docker_apt_repository }}"
+    state: present
+
+- name: Install Docker CE
+  ansible.builtin.apt:
+    name: docker-ce
+    state: present
+    update_cache: true
+
+- name: Ensure Docker service is enabled and running
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started
