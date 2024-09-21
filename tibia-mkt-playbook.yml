@@ -1,10 +1,10 @@
 ---
-- name: Zip tibia-mkt app
+- name: Tibia-Mkt localhost create artifact playbook
   hosts: localhost
   roles:
     - tibia-mkt-zip
 
-- name: Install Docker on Ubuntu
+- name: Deploy tibia-mkt to hosts
   hosts: all
   become: true
   roles:

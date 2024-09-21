@@ -9,7 +9,15 @@
 
 - name: Copy tibia-mkt project to tmp_build folder
   ansible.builtin.copy:
-    src: "{{ local_project_folder }}"
+    src: "{{ local_tmp_project_folder }}"
+    dest: "{{ tmp_build_folder }}"
+    mode: '0755'
+    owner: aclaretdev  # Optional ownership
+    group: aclaretdev  # Optional group ownership
+
+- name: Copy tibia-mkt project to tmp_build folder
+  ansible.builtin.unarchive:
+    src: "{{ tmp_build_folder }}"
     dest: "{{ tmp_build_folder }}"
     mode: '0755'
     owner: aclaretdev  # Optional ownership

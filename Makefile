@@ -1,7 +1,7 @@
 # Makefile for executing Ansible playbook
 
 # Set the Ansible playbook and inventory files
-PLAYBOOK = playbook.yml
+PLAYBOOK = tibia-mkt-playbook.yml
 INVENTORY = inventory.yml
 KEY_FILE = ~/.ssh/ansible
 

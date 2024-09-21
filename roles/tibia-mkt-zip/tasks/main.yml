@@ -1,18 +1,14 @@
 ---
+- include_vars: /shared/shared-variables.yml
+
 - name: Create tmp build folder
   ansible.builtin.file:
     path: "{{ local_tmp_build_folder }}"
     state: directory
     mode: '0755'
 
-- name: Copy tibia-mkt project to tmp_build folder
-  ansible.builtin.copy:
-    src: "{{ local_project_folder }}"
-    dest: "{{ local_tmp_build_folder }}"
-    mode: '0755'
-
 - name: Zip tibia-mkt app
   community.general.archive:
-    src: "{{ local_project_folder }}"
-    dest: "{{ local_tmp_build_folder }}"
+    path: "{{ local_project_folder }}"
+    dest: "{{ local_tmp_build_folder }}/tibia-mkt-artifact.zip"
     mode: '0755'
