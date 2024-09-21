@@ -7,7 +7,7 @@ KEY_FILE = ~/.ssh/ansible
 
 # Define the target for executing the Ansible playbook
 run:
-	ansible-playbook $(PLAYBOOK) -i $(INVENTORY) --key-file $(KEY_FILE) --ask-become-pass -vvvv
+	ansible-playbook $(PLAYBOOK) -i $(INVENTORY) --key-file $(KEY_FILE) --ask-become-pass
 
 # Optional targets for cleaning up or other tasks
 clean:

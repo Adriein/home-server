@@ -4,8 +4,10 @@
     name: "{{ item }}"
     state: present
   loop:
+    - apt-transport-https
     - ca-certificates
     - curl
+    - software-properties-common
 
 - name: Create keyrings folder
   ansible.builtin.file:
@@ -18,7 +20,7 @@
 - name: Change permissions of docker key file
   ansible.builtin.file:
     path: /etc/apt/keyrings/docker.asc
-    state: file
+    state: touch
     mode: 'a+r'
 
 - name: Add Docker GPG key
@@ -32,11 +34,17 @@
     repo: "{{ docker_apt_repository }}"
     state: present
 
-- name: Install Docker CE
+- name: Install Docker packages
   ansible.builtin.apt:
-    name: docker-ce
+    name: "{{ item }}"
     state: present
     update_cache: true
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
 
 - name: Ensure Docker service is enabled and running
   ansible.builtin.systemd:
