@@ -12,8 +12,8 @@
     path: /etc/apt/keyrings
     state: directory
     mode: '0755'  # Optional file permissions
-    owner: ubuntu  # Optional ownership
-    group: ubuntu  # Optional group ownership
+    owner: aclaretdev  # Optional ownership
+    group: aclaretdev  # Optional group ownership
 
 - name: Add Docker GPG key
   ansible.builtin.apt_key:
