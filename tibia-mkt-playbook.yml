@@ -1,0 +1,12 @@
+---
+- name: Zip tibia-mkt app
+  hosts: localhost
+  roles:
+    - tibia-mkt-zip
+
+- name: Install Docker on Ubuntu
+  hosts: all
+  become: true
+  roles:
+    - docker-install
+    - tibia-mkt-build

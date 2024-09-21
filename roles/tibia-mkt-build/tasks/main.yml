@@ -1,0 +1,16 @@
+---
+- name: Create tmp build folder
+  ansible.builtin.file:
+    path: "{{ tmp_build_folder }}"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: aclaretdev  # Optional ownership
+    group: aclaretdev  # Optional group ownership
+
+- name: Copy tibia-mkt project to tmp_build folder
+  ansible.builtin.copy:
+    src: "{{ local_project_folder }}"
+    dest: "{{ tmp_build_folder }}"
+    mode: '0755'
+    owner: aclaretdev  # Optional ownership
+    group: aclaretdev  # Optional group ownership

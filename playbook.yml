@@ -1,6 +1,0 @@
----
-- name: Install Docker on Ubuntu
-  hosts: all
-  become: true
-  roles:
-    - docker-install
