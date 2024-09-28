@@ -1,5 +1,5 @@
 ---
-- name: Tibia-Mkt localhost create artifact playbook
+- name: Tibia-Mkt localhost create artifact
   hosts: localhost
   roles:
     - tibia-mkt-zip

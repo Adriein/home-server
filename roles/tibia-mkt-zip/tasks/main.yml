@@ -1,6 +1,4 @@
 ---
-- include_vars: /shared/shared-variables.yml
-
 - name: Create tmp build folder
   ansible.builtin.file:
     path: "{{ local_tmp_build_folder }}"
