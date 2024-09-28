@@ -34,7 +34,15 @@
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
 
-- name: Remove tibia-mkt zip
+- name: Create tmp build folder
+  ansible.builtin.copy:
+    src: "{{ tmp_build_folder }}/{{ shared.tibia_mkt_folder }}"
+    dest: "{{ remote_home_path }}"
+    mode: '0755'
+    owner: aclaretdev  # Optional ownership
+    group: aclaretdev  # Optional group ownership
+
+- name: Remove tmp_build
   ansible.builtin.file:
-    path: "{{ tmp_build_folder }}/{{ shared.tibia_mkt_artifact }}"
+    path: "{{ tmp_build_folder }}"
     state: absent

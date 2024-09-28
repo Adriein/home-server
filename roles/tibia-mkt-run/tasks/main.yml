@@ -1,0 +1,10 @@
+---
+- name: Import global vars
+  ansible.builtin.include_vars:
+    dir: /home/aclaret/CLARET-DEV/home-server/shared
+    name: shared
+
+- name: Run docker-compose up
+  community.docker.docker_compose:
+    project_src: "{{ shared.tibia_mkt_folder }}"
+    state: present

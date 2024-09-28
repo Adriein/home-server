@@ -19,7 +19,6 @@
   community.general.archive:
     path: "{{ local_project_folder }}/*"
     dest: "{{ local_tmp_build_folder }}/{{ shared.tibia_mkt_artifact }}"
-    format: zip
     exclusion_patterns:
       - "node_modules/*"
       - "migrate"
