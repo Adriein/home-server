@@ -1,6 +1,8 @@
 ---
 - name: Import global vars
-  ansible.builtin.include_vars: main.yml
+  ansible.builtin.include_vars:
+    dir: /home/aclaret/CLARET-DEV/home-server/shared
+    name: shared
 
 - name: Create tmp build folder
   ansible.builtin.file:
@@ -8,16 +10,17 @@
     state: directory
     mode: '0755'
 
-- name: Remove file (delete file)
+- name: Remove tibia-mkt artifact if exists
   ansible.builtin.file:
-    path: "{{ local_tmp_build_folder }}/{{ tibia_mkt_artifact }}"
+    path: "{{ local_tmp_build_folder }}/{{ shared.tibia_mkt_artifact }}"
     state: absent
 
 - name: Zip tibia-mkt app
   community.general.archive:
-    path: "{{ local_project_folder }}"
-    dest: "{{ local_tmp_build_folder }}/{{ tibia_mkt_artifact }}"
-    exclude_path:
-      - "{{ local_project_folder }}/frontend/node_modules"
-      - "{{ local_project_folder }}/server/migrate"
+    path: "{{ local_project_folder }}/*"
+    dest: "{{ local_tmp_build_folder }}/{{ shared.tibia_mkt_artifact }}"
+    format: zip
+    exclusion_patterns:
+      - "node_modules/*"
+      - "migrate"
     mode: '0755'
