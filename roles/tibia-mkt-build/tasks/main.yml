@@ -1,4 +1,7 @@
 ---
+- name: Import global vars
+  ansible.builtin.include_vars: main.yml
+
 - name: Create tmp build folder
   ansible.builtin.file:
     path: "{{ tmp_build_folder }}"
@@ -7,9 +10,9 @@
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
 
-- name: Copy tibia-mkt project to tmp_build folder
+- name: Copy tibia-mkt artifact to tmp_build folder
   ansible.builtin.copy:
-    src: "{{ local_tmp_project_folder }}"
+    src: "{{ local_tmp_project_folder }}/{{ tibia_mkt_artifact }}"
     dest: "{{ tmp_build_folder }}"
     mode: '0755'
     owner: aclaretdev  # Optional ownership
@@ -17,7 +20,7 @@
 
 - name: Copy tibia-mkt project to tmp_build folder
   ansible.builtin.unarchive:
-    src: "{{ tmp_build_folder }}"
+    src: "{{ tmp_build_folder }}/{{ tibia_mkt_artifact }}"
     dest: "{{ tmp_build_folder }}"
     mode: '0755'
     owner: aclaretdev  # Optional ownership

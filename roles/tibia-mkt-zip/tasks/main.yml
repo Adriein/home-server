@@ -1,12 +1,23 @@
 ---
+- name: Import global vars
+  ansible.builtin.include_vars: main.yml
+
 - name: Create tmp build folder
   ansible.builtin.file:
     path: "{{ local_tmp_build_folder }}"
     state: directory
     mode: '0755'
 
+- name: Remove file (delete file)
+  ansible.builtin.file:
+    path: "{{ local_tmp_build_folder }}/{{ tibia_mkt_artifact }}"
+    state: absent
+
 - name: Zip tibia-mkt app
   community.general.archive:
     path: "{{ local_project_folder }}"
-    dest: "{{ local_tmp_build_folder }}/tibia-mkt-artifact.zip"
+    dest: "{{ local_tmp_build_folder }}/{{ tibia_mkt_artifact }}"
+    exclude_path:
+      - "{{ local_project_folder }}/frontend/node_modules"
+      - "{{ local_project_folder }}/server/migrate"
     mode: '0755'
