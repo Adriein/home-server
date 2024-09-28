@@ -5,6 +5,8 @@
     name: shared
 
 - name: Run docker-compose up
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ shared.tibia_mkt_folder }}"
     state: present
+    pull: always
+    build: always

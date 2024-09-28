@@ -34,10 +34,11 @@
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
 
-- name: Create tmp build folder
+- name: Copy project into server root folder
   ansible.builtin.copy:
     src: "{{ tmp_build_folder }}/{{ shared.tibia_mkt_folder }}"
-    dest: "{{ remote_home_path }}"
+    dest: "{{ shared.remote_home_path }}/{{ shared.tibia_mkt_folder }}"
+    remote_src: true
     mode: '0755'
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
