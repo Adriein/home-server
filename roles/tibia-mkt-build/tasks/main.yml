@@ -6,12 +6,12 @@
 
 - name: Remove tmp_build
   ansible.builtin.file:
-    path: "{{ tmp_build_folder }}"
+    path: "{{ shared.tmp_build_folder }}"
     state: absent
 
 - name: Create tmp build folder
   ansible.builtin.file:
-    path: "{{ tmp_build_folder }}"
+    path: "{{ shared.tmp_build_folder }}"
     state: directory
     mode: '0755'  # Optional file permissions
     owner: aclaretdev  # Optional ownership
@@ -20,30 +20,16 @@
 - name: Copy tibia-mkt artifact to tmp_build folder
   ansible.builtin.copy:
     src: "{{ local_tmp_project_folder }}/{{ shared.tibia_mkt_artifact }}"
-    dest: "{{ tmp_build_folder }}"
+    dest: "{{ shared.tmp_build_folder }}"
     mode: '0755'
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
 
 - name: Unzip tibia-mkt artifact
   ansible.builtin.unarchive:
-    src: "{{ tmp_build_folder }}/{{ shared.tibia_mkt_artifact }}"
-    dest: "{{ tmp_build_folder }}"
+    src: "{{ shared.tmp_build_folder }}/{{ shared.tibia_mkt_artifact }}"
+    dest: "{{ shared.tmp_build_folder }}"
     remote_src: true
     mode: '0755'
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
-
-- name: Copy project into server root folder
-  ansible.builtin.copy:
-    src: "{{ tmp_build_folder }}/{{ shared.tibia_mkt_folder }}"
-    dest: "{{ shared.remote_home_path }}/{{ shared.tibia_mkt_folder }}"
-    remote_src: true
-    mode: '0755'
-    owner: aclaretdev  # Optional ownership
-    group: aclaretdev  # Optional group ownership
-
-- name: Remove tmp_build
-  ansible.builtin.file:
-    path: "{{ tmp_build_folder }}"
-    state: absent
