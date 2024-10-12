@@ -10,3 +10,5 @@
     state: present
     pull: always
     build: always
+    env_files:
+      - .env

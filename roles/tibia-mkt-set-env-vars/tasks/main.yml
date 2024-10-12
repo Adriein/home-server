@@ -6,13 +6,13 @@
 
 - name: Create .env file for docker
   ansible.builtin.file:
-    path: "{{ shared.tmp_build_folder }}/.docker-env"
+    path: "{{ shared.tmp_build_folder }}/.env"
     state: touch
     mode: '0755'  # Optional file permissions
 
-- name: Write env vars into the .docker-env file
+- name: Write env vars into the .env file
   ansible.builtin.lineinfile:
-    dest: "{{ shared.tmp_build_folder }}/.docker-env"
+    dest: "{{ shared.tmp_build_folder }}/.env"
     state: present
     regexp: "^{{ item.key }}="
     line: "{{ item.key }}={{ item.value }}"

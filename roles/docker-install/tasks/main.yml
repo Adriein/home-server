@@ -65,5 +65,5 @@
 - name: Add remote "ubuntu" user to "docker" group
   ansible.builtin.user:
     name: "{{ remote_admin_user }}"
-    group: "{{ docker_group }}"
+    groups: "{{ docker_group }}"
     append: true
