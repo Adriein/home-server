@@ -8,7 +8,12 @@
   community.docker.docker_compose_v2:
     project_src: "{{ shared.tmp_build_folder }}"
     state: present
-    pull: always
+    pull: missing
     build: always
     env_files:
       - .env
+  register: output
+
+- name: Show results
+  ansible.builtin.debug:
+    var: output

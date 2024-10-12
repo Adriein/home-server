@@ -18,4 +18,4 @@
     DATABASE_PASSWORD: "{{ database_password }}"
     SERVER_PORT: "{{ server_port }}"
     TIBIA_MKT_API_KEY: "{{ tibia_mkt_api_key }}"
-    ENVIRONMENT: "production"
+    ENVIRONMENT: "PRODUCTION"
