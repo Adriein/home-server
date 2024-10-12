@@ -33,3 +33,11 @@
     mode: '0755'
     owner: aclaretdev  # Optional ownership
     group: aclaretdev  # Optional group ownership
+
+- name: Remove .env files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ shared.tmp_build_folder }}/frontend/.env"
+    - "{{ shared.tmp_build_folder }}/server/.env"

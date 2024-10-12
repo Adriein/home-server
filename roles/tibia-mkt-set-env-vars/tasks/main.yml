@@ -1,0 +1,31 @@
+---
+- name: Import global vars
+  ansible.builtin.include_vars:
+    dir: /home/aclaret/CLARET-DEV/home-server/shared
+    name: shared
+
+- name: Create .env file for docker
+  ansible.builtin.file:
+    path: "{{ shared.tmp_build_folder }}/.docker-env"
+    state: touch
+    mode: '0755'  # Optional file permissions
+
+- name: Write env vars into the .docker-env file
+  ansible.builtin.lineinfile:
+    dest: "{{ shared.tmp_build_folder }}/.docker-env"
+    state: present
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+  with_items:
+    - key: DATABASE_NAME
+      value: "{{ ansible_env.DATABASE_NAME }}"
+    - key: DATABASE_USER
+      value: "{{ ansible_env.DATABASE_USER }}"
+    - key: DATABASE_PASSWORD
+      value: "{{ ansible_env.DATABASE_PASSWORD }}"
+    - key: SERVER_PORT
+      value: "{{ ansible_env.SERVER_PORT }}"
+    - key: TIBIA_MKT_API_KEY
+      value: "{{ ansible_env.TIBIA_MKT_API_KEY }}"
+    - key: ENVIRONMENT
+      value: "{{ ansible_env.ENVIRONMENT }}"
