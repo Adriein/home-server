@@ -12,6 +12,7 @@
     - tibia-mkt-build
     - tibia-mkt-set-env-vars
     - tibia-mkt-run
+    - tibia-mkt-run-migrations
   environment:
     DATABASE_IP: "{{ database_ip }}"
     DATABASE_NAME: "{{ database_name }}"

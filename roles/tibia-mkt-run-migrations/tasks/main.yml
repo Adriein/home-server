@@ -1,0 +1,30 @@
+---
+- name: Import global vars
+  ansible.builtin.include_vars:
+    dir: /home/aclaret/CLARET-DEV/home-server/shared
+    name: shared
+
+- name: Download the migrate tool
+  ansible.builtin.get_url:
+    url: https://github.com/golang-migrate/migrate/releases/download/v4.17.1/migrate.linux-amd64.tar.gz
+    dest: "."
+    mode: '0755'  # Optional file permissions
+    owner: aclaretdev  # Optional ownership
+    group: aclaretdev  # Optional group ownership
+
+- name: Untar migrate tool
+  ansible.builtin.unarchive:
+    src: "migrate.linux-amd64.tar.gz"
+    dest: "{{ shared.remote_home_path }}"
+    remote_src: true
+    mode: '0755'
+    owner: aclaretdev  # Optional ownership
+    group: aclaretdev  # Optional group ownership
+
+- name: Remove tar archive
+  ansible.builtin.file:
+    path: "{{ shared.remote_home_path }}/migrate.linux-amd64.tar.gz"
+    state: absent
+
+- name: Execute migrations on remote
+  ansible.builtin.raw: migrate -database postgresql://{{ ansible_env.DATABASE_USER }}:{{ ansible_env.DATABASE_PASSWORD }}@{{ ansible_env.DATABASE_IP }}:5432/{{ ansible_env.DATABASE_NAME }}?sslmode=disable -path ./tmp_build/server/database/migrations up
