@@ -13,9 +13,12 @@
     - tibia-mkt-set-env-vars
     - tibia-mkt-run
   environment:
+    DATABASE_IP: "{{ database_ip }}"
     DATABASE_NAME: "{{ database_name }}"
     DATABASE_USER: "{{ database_user }}"
     DATABASE_PASSWORD: "{{ database_password }}"
     SERVER_PORT: "{{ server_port }}"
     TIBIA_MKT_API_KEY: "{{ tibia_mkt_api_key }}"
     ENVIRONMENT: "PRODUCTION"
+    API_URL: "{{ api_url }}"
+    API_PROTOCOL: "{{ api_protocol }}"

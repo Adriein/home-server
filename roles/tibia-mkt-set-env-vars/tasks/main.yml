@@ -17,6 +17,8 @@
     regexp: "^{{ item.key }}="
     line: "{{ item.key }}={{ item.value }}"
   with_items:
+    - key: DATABASE_IP
+      value: "{{ ansible_env.DATABASE_IP }}"
     - key: DATABASE_NAME
       value: "{{ ansible_env.DATABASE_NAME }}"
     - key: DATABASE_USER
@@ -29,3 +31,7 @@
       value: "{{ ansible_env.TIBIA_MKT_API_KEY }}"
     - key: ENVIRONMENT
       value: "{{ ansible_env.ENVIRONMENT }}"
+    - key: API_URL
+      value: "{{ ansible_env.API_URL }}"
+    - key: API_PROTOCOL
+      value: "{{ ansible_env.API_PROTOCOL }}"
