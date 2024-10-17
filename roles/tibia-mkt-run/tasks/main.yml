@@ -4,6 +4,22 @@
     dir: /home/aclaret/CLARET-DEV/home-server/shared
     name: shared
 
+- name: Run docker-compose down
+  community.docker.docker_compose_v2:
+    project_src: "{{ shared.tmp_build_folder }}"
+    state: absent
+    env_files:
+      - .env
+  register: output
+
+- name: Show docker compose down results
+  ansible.builtin.debug:
+    var: output
+
+- name: Show results
+  ansible.builtin.debug:
+    var: output
+
 - name: Run docker-compose up
   community.docker.docker_compose_v2:
     project_src: "{{ shared.tmp_build_folder }}"
@@ -14,6 +30,6 @@
       - .env
   register: output
 
-- name: Show results
+- name: Show docker compose up results
   ansible.builtin.debug:
     var: output
