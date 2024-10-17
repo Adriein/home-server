@@ -27,4 +27,4 @@
     state: absent
 
 - name: Execute migrations on remote
-  ansible.builtin.raw: migrate -database postgresql://{{ ansible_env.DATABASE_USER }}:{{ ansible_env.DATABASE_PASSWORD }}@{{ ansible_env.DATABASE_IP }}:5432/{{ ansible_env.DATABASE_NAME }}?sslmode=disable -path ./tmp_build/server/database/migrations up
+  ansible.builtin.shell: ./migrate -database postgresql://{{ ansible_env.DATABASE_USER }}:{{ ansible_env.DATABASE_PASSWORD }}@{{ ansible_env.DATABASE_IP }}:5432/{{ ansible_env.DATABASE_NAME }}?sslmode=disable -path ./tmp_build/server/database/migrations up
